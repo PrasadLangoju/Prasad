@@ -1,5 +1,5 @@
 /**
- * @version 0
+ * @version 2
  */
   
 package com.orasi;
@@ -213,9 +213,9 @@ public class SuiteExecutionWrapper {
       SuiteExecutionWrapper.instance().getOptions().addOption(new Option("rq", "runquarantine", false, "Indicates that tests in the quarantine state should run"));
       SuiteExecutionWrapper.instance().getOptions().addOption(new Option("f", "failurelevel", true, "What error level fails a test suite.  1: Infrastructure, 2: Automation Failure (default), 3: Application Failure, 4: Unknown Error"));
 
+      SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.embedded.selenium.SeleniumEmbedded().getOptions() );
       SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.html.HTMLSerializer().getOptions() );
       SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.console.ExecutionConsole().getOptions() );
-      SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.embedded.selenium.SeleniumEmbedded().getOptions() );
       
 
       CommandLineParser cP = new DefaultParser();
@@ -257,37 +257,38 @@ public class SuiteExecutionWrapper {
 
       if ( cli.hasOption( "h" ) ) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -jar GIT_repository", SuiteExecutionWrapper.instance().getOptions() );
+        formatter.printHelp("java -jar Build_screen", SuiteExecutionWrapper.instance().getOptions() );
         System.exit( 0 );
       }
 
       if ( cli.hasOption( "q" ) ) {
         System.out.println( "Suite" );
-        System.out.println( "GIT repository (Suite): 17564.3716" ); 
+        System.out.println( "Build screen (Suite): 17998.1200" ); 
         System.out.println( "\r\nTests" );
-        System.out.println( "ONe (Test): 17564.3724" );
+        System.out.println( "Test One (Test): 17998.1208" );
         
         System.out.println( "\r\nFunctions" );
         
         
         System.out.println( "\r\nExecution Targets" );
-	System.out.println( "GIT repository local router (Router): 17564.3719" );
-	System.out.println( "Chrome (Execution Target): 17564.3720" );
+	System.out.println( "Build screen local router (Router): 17998.1203" );
+	System.out.println( "Chrome (Execution Target): 17998.1204" );
 	
         System.out.println( "\r\nSites and Pages" );
-        System.out.println( "www.google.com (Site): 17564.3726" );
-        System.out.println( "Google (Page): 17564.3730" );
-        System.out.println( "default (Page): 17564.3749" );
-        System.out.println( "facebook - Google Search (Page): 17564.3751" );
-        System.out.println( "www.facebook.com (Site): 17564.3768" );
-        System.out.println( "Facebook  log in or sign up (Page): 17564.3770" );
+        System.out.println( "www.google.com (Site): 17998.1210" );
+        System.out.println( "Google (Page): 17998.1213" );
+        System.out.println( "default (Page): 17998.1233" );
+        System.out.println( "facebook - Google Search (Page): 17998.1235" );
+        System.out.println( "www.facebook.com (Site): 17998.1252" );
+        System.out.println( "Log in to Facebook (Page): 17998.1254" );
         
         System.out.println( "\r\nData Sources" );
         
-        System.out.println( "HTML Generator (Integration): 17564.3721" );
+        System.out.println( "\r\nPlugins" );
+        System.out.println( "Integrated Selenium Server (Plugin): 17998.1201" );
+        System.out.println( "HTML Generator (Plugin): 17998.1205" );
+        System.out.println( "Alchemy Execution Console (Plugin): 17998.1206" );
         
-        System.out.println( "Alchemy Execution Console (Integration): 17564.3722" );
-        System.out.println( "Integrated Selenium Server (Integration): 17564.3717" );
         
         System.out.println( "\r\n\r\nImported Suites" ); 
 	
@@ -304,7 +305,7 @@ public class SuiteExecutionWrapper {
       if ( cli.hasOption( "a" ) ) {
         SuiteExecutionWrapper.instance().setName(cli.getOptionValue( "a" ));
       } else {
-        SuiteExecutionWrapper.instance().setName("GIT repository");
+        SuiteExecutionWrapper.instance().setName("Build screen");
       }
       if ( cli.hasOption( "u" ) ) {
         SuiteExecutionWrapper.instance().setUserName(cli.getOptionValue( "u" ));
@@ -314,17 +315,17 @@ public class SuiteExecutionWrapper {
       if ( cli.hasOption( "d" ) ) {
         SuiteExecutionWrapper.instance().setDescription(cli.getOptionValue( "d" ));
       } else {
-        SuiteExecutionWrapper.instance().setDescription("No description was added for GIT repository");
+        SuiteExecutionWrapper.instance().setDescription("No description was added for Build screen");
       }
 
       //
       // Configure the test level information
       //
       List<String> testList = new ArrayList(5);
-      if ( hasValue( "it", "17564.3724" ) ) {
+      if ( hasValue( "it", "17998.1208" ) ) {
         if ( 0 == 0 || ( 0 == 1 && cli.hasOption( "rd" ) ) || ( 0 == 2 && cli.hasOption( "rq" ) ) ) {
-          TestManager.instance().registerTest( new org.org_1.git_repository.one() );
-          testList.add("ONe");
+          TestManager.instance().registerTest( new org.org_1.build_screen.test_one() );
+          testList.add("Test One");
         }
       }
       
@@ -341,11 +342,11 @@ public class SuiteExecutionWrapper {
       //
       Router r;
       /*
-      Routers from GIT repository local router Execution Package
-      Add a description of GIT repository local router Execution Package
+      Routers from Build screen local router Execution Package
+      Add a description of Build screen local router Execution Package
       */
-      if ( hasValue( "ir", "17564.3719" ) ) { 
-        r = new Router( 1, "GIT repository local router", "17564.3719" ,"{\"name\":\"GIT repository local router\",\"description\":\"Add a description of GIT repository local router\",\"alchemyId\":3719,\"alchemySeed\":17564,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}" );
+      if ( hasValue( "ir", "17998.1203" ) ) { 
+        r = new Router( 1, "Build screen local router", "17998.1203" ,"{\"name\":\"Build screen local router\",\"description\":\"Add a description of Build screen local router\",\"alchemyId\":1203,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}" );
       
         r.addProperty( "URL", DataManager.instance().replaceValues( "http://localhost:4444/wd/hub" ) + "" );
         SuiteExecutionWrapper.instance().routerList.add(r);
@@ -358,11 +359,11 @@ public class SuiteExecutionWrapper {
       List<ExecutionTarget> targetList = new ArrayList<>(10);
       ExecutionTarget eT;
       /*
-      Targets from GIT repository local router Execution Package
-      Add a description of GIT repository local router Execution Package
+      Targets from Build screen local router Execution Package
+      Add a description of Build screen local router Execution Package
       */
-      if ( hasValue( "ie", "17564.3720" ) ) {
-        eT = new ExecutionTarget( "Chrome", "17564.3720", "17564.3719", 2 ,"{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":3720,\"alchemySeed\":17564,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":3719,\"alchemySeed\":17564},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
+      if ( hasValue( "ie", "17998.1204" ) ) {
+        eT = new ExecutionTarget( "Chrome", "17998.1204", "17998.1203", 2 ,"{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":1204,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":1203,\"alchemySeed\":17998},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
         if ( eT.getMaximumAvailable() > 0 ) {
           eT.addProperty( "browserName", DataManager.instance().replaceValues( "chrome" ) + "" );
           eT.addProperty( "platformName", DataManager.instance().replaceValues( "ANY" ) + "" );
@@ -400,10 +401,20 @@ public class SuiteExecutionWrapper {
       // Configuration Integrations
       //
       Integration cI = null;
+      if ( hasValue( "iw", "17998.1201" ) ) { 
+        cI = new com.orasi.integration.embedded.selenium.SeleniumEmbedded();
+        log.warn( "Enabling Integration: " + cI.getName() );
+        cI.setProperty( "host", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "host", DataManager.instance().replaceValues( "localhost" ) + "" ) );
+        cI.setProperty( "port", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "port", DataManager.instance().replaceValues( "4444" ) + "" ) );
+        cI.setProperty( "managed", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "managed", DataManager.instance().replaceValues( "true" ) + "" ) );
       
-      if ( hasValue( "iw", "17564.3721" ) ) { 
+        cI.initialize();
+        cI.getHandlers().forEach((t) -> {
+          addEventHandler(t);
+        });
+      }if ( hasValue( "iw", "17998.1205" ) ) { 
         cI = new com.orasi.integration.html.HTMLSerializer();
-        log.warn( "Enabling Integration: " + cI.getTitle() );
+        log.warn( "Enabling Integration: " + cI.getName() );
         cI.setProperty( "outputFolder", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "outputFolder", DataManager.instance().replaceValues( "c:/Reports" ) + "" ) );
         cI.setProperty( "launchUi", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "launchUi", DataManager.instance().replaceValues( "true" ) + "" ) );
         cI.setProperty( "suiteTemplate", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "suiteTemplate", DataManager.instance().replaceValues( "" ) + "" ) );
@@ -414,13 +425,9 @@ public class SuiteExecutionWrapper {
         cI.getHandlers().forEach((t) -> {
           addEventHandler(t);
         });
-      }
-      
-      
-      
-      if ( hasValue( "iw", "17564.3722" ) ) { 
+      }if ( hasValue( "iw", "17998.1206" ) ) { 
         cI = new com.orasi.integration.console.ExecutionConsole();
-        log.warn( "Enabling Integration: " + cI.getTitle() );
+        log.warn( "Enabling Integration: " + cI.getName() );
         cI.setProperty( "color", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "color", DataManager.instance().replaceValues( "true" ) + "" ) );
       
         cI.initialize();
@@ -428,20 +435,6 @@ public class SuiteExecutionWrapper {
           addEventHandler(t);
         });
       }
-      
-      if ( hasValue( "iw", "17564.3717" ) ) { 
-        cI = new com.orasi.integration.embedded.selenium.SeleniumEmbedded();
-        log.warn( "Enabling Integration: " + cI.getTitle() );
-        cI.setProperty( "host", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "host", DataManager.instance().replaceValues( "localhost" ) + "" ) );
-        cI.setProperty( "port", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "port", DataManager.instance().replaceValues( "4444" ) + "" ) );
-        cI.setProperty( "managed", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "managed", DataManager.instance().replaceValues( "true" ) + "" ) );
-      
-        cI.initialize();
-        cI.getHandlers().forEach((t) -> {
-          addEventHandler(t);
-        });
-      }
-      
 
         //
       // Get all active targets
@@ -529,7 +522,7 @@ public class SuiteExecutionWrapper {
       suitePayload.setName(name);
       suitePayload.setDescription(description);
       suitePayload.setUserName(userName);
-      suitePayload.setSuiteDetail(  "{\"id\":4356,\"name\":\"GIT repository\",\"description\":\"No description was added for GIT repository\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":1,\"endpointStyleId\":1,\"targetId\":4518,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":3542,\"name\":\"GIT repository local router Execution Package\",\"description\":\"Add a description of GIT repository local router Execution Package\",\"alchemyId\":3718,\"alchemySeed\":17564,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"Chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 3720, \\\"alchemySeed\\\": 17564, \\\"description\\\": \\\"Add a description of Chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}, {\\\"name\\\": \\\"platformName\\\", \\\"value\\\": \\\"ANY\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 3719, \\\"alchemySeed\\\": 17564}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"GIT repository local router\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 1, \\\"alchemyId\\\": 3719, \\\"alchemySeed\\\": 17564, \\\"description\\\": \\\"Add a description of GIT repository local router\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"URL\\\", \\\"value\\\": \\\"http://localhost:4444/wd/hub\\\"}], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Sep 17, 2024, 12:46:09 PM\",\"modifyDate\":\"Sep 17, 2024, 12:46:09 PM\",\"targetList\":[{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":3720,\"alchemySeed\":17564,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":3719,\"alchemySeed\":17564},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"GIT repository local router\",\"description\":\"Add a description of GIT repository local router\",\"alchemyId\":3719,\"alchemySeed\":17564,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}],\"acls\":[]}],\"version\":0,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":3716,\"alchemySeed\":17564,\"referenceSuiteID\":0,\"changed\":false}" );
+      suitePayload.setSuiteDetail(  "{\"id\":4400,\"name\":\"Build screen\",\"description\":\"No description was added for Build screen\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":1,\"endpointStyleId\":1,\"targetId\":4562,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":3586,\"name\":\"Build screen local router Execution Package\",\"description\":\"Add a description of Build screen local router Execution Package\",\"alchemyId\":1202,\"alchemySeed\":17998,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"Chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 1204, \\\"alchemySeed\\\": 17998, \\\"description\\\": \\\"Add a description of Chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}, {\\\"name\\\": \\\"platformName\\\", \\\"value\\\": \\\"ANY\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 1203, \\\"alchemySeed\\\": 17998}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"Build screen local router\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 1, \\\"alchemyId\\\": 1203, \\\"alchemySeed\\\": 17998, \\\"description\\\": \\\"Add a description of Build screen local router\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"URL\\\", \\\"value\\\": \\\"http://localhost:4444/wd/hub\\\"}], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Sep 23, 2024, 1:13:03 PM\",\"modifyDate\":\"Sep 23, 2024, 1:13:03 PM\",\"targetList\":[{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":1204,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":1203,\"alchemySeed\":17998},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"Build screen local router\",\"description\":\"Add a description of Build screen local router\",\"alchemyId\":1203,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}],\"acls\":[]}],\"version\":2,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":1200,\"alchemySeed\":17998,\"referenceSuiteID\":0,\"changed\":false}" );
       suitePayload.setTestList(testList);
       suitePayload.setTargetList(targetList);
       suitePayload.setTotalTests(totalTasks);

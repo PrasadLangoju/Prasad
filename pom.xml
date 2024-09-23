@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
    <groupId>org.a_1</groupId>
-   <artifactId>git_repository</artifactId>
+   <artifactId>build_screen</artifactId>
    <version>1.0.0</version>
    <repositories>
      <repository>
@@ -129,6 +129,11 @@
      </dependency>
      <dependency>
        <groupId>com.orasi</groupId>
+       <artifactId>embedded-selenium</artifactId>
+       <version>1.0.5</version>
+     </dependency>
+     <dependency>
+       <groupId>com.orasi</groupId>
        <artifactId>html-serializer</artifactId>
        <version>2.0.4</version>
      </dependency>
@@ -136,11 +141,6 @@
        <groupId>com.orasi</groupId>
        <artifactId>execution-console</artifactId>
        <version>1.0.10</version>
-     </dependency>
-     <dependency>
-       <groupId>com.orasi</groupId>
-       <artifactId>embedded-selenium</artifactId>
-       <version>1.0.5</version>
      </dependency>
    </dependencies>
  </project>

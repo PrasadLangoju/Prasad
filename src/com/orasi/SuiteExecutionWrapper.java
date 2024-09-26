@@ -1,5 +1,5 @@
 /**
- * @version 2
+ * @version 1
  */
   
 package com.orasi;
@@ -213,9 +213,9 @@ public class SuiteExecutionWrapper {
       SuiteExecutionWrapper.instance().getOptions().addOption(new Option("rq", "runquarantine", false, "Indicates that tests in the quarantine state should run"));
       SuiteExecutionWrapper.instance().getOptions().addOption(new Option("f", "failurelevel", true, "What error level fails a test suite.  1: Infrastructure, 2: Automation Failure (default), 3: Application Failure, 4: Unknown Error"));
 
-      SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.embedded.selenium.SeleniumEmbedded().getOptions() );
       SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.html.HTMLSerializer().getOptions() );
       SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.console.ExecutionConsole().getOptions() );
+      SuiteExecutionWrapper.instance().addOptions( new com.orasi.integration.guiconsole.GUIExecutionConsole().getOptions() );
       
 
       CommandLineParser cP = new DefaultParser();
@@ -226,7 +226,7 @@ public class SuiteExecutionWrapper {
       }
 
       // Default Environment Properties 
-      DataManager.instance().addDefaultEnvironmentProperty( "url", DataManager.instance().replaceValues( "https://www.google.com" ) + "" );
+      DataManager.instance().addDefaultEnvironmentProperty( "url", DataManager.instance().replaceValues( "" ) + "" );
 
 
 
@@ -257,37 +257,39 @@ public class SuiteExecutionWrapper {
 
       if ( cli.hasOption( "h" ) ) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -jar Build_screen", SuiteExecutionWrapper.instance().getOptions() );
+        formatter.printHelp("java -jar Cloud_12", SuiteExecutionWrapper.instance().getOptions() );
         System.exit( 0 );
       }
 
       if ( cli.hasOption( "q" ) ) {
         System.out.println( "Suite" );
-        System.out.println( "Build screen (Suite): 17998.1200" ); 
+        System.out.println( "Cloud 12 (Suite): 18250.413" ); 
         System.out.println( "\r\nTests" );
-        System.out.println( "Test One (Test): 17998.1208" );
+        System.out.println( "Test One (Test): 18250.420" );
         
         System.out.println( "\r\nFunctions" );
         
         
         System.out.println( "\r\nExecution Targets" );
-	System.out.println( "Build screen local router (Router): 17998.1203" );
-	System.out.println( "Chrome (Execution Target): 17998.1204" );
+	System.out.println( "Cloud 12 router (Router): 18250.415" );
+	System.out.println( "Chrome (Execution Target): 18250.416" );
+	System.out.println( "Firefox (Execution Target): 18250.417" );
+	System.out.println( "Microsoft Edge (Execution Target): 18250.418" );
 	
         System.out.println( "\r\nSites and Pages" );
-        System.out.println( "www.google.com (Site): 17998.1210" );
-        System.out.println( "Google (Page): 17998.1213" );
-        System.out.println( "default (Page): 17998.1233" );
-        System.out.println( "facebook - Google Search (Page): 17998.1235" );
-        System.out.println( "www.facebook.com (Site): 17998.1252" );
-        System.out.println( "Log in to Facebook (Page): 17998.1254" );
+        System.out.println( "www.google.com (Site): 18250.422" );
+        System.out.println( "Google (Page): 18250.425" );
+        System.out.println( "default (Page): 18250.445" );
+        System.out.println( "facebook - Google Search (Page): 18250.447" );
+        System.out.println( "www.facebook.com (Site): 18250.464" );
+        System.out.println( "Facebook  log in or sign up (Page): 18250.466" );
         
         System.out.println( "\r\nData Sources" );
         
         System.out.println( "\r\nPlugins" );
-        System.out.println( "Integrated Selenium Server (Plugin): 17998.1201" );
-        System.out.println( "HTML Generator (Plugin): 17998.1205" );
-        System.out.println( "Alchemy Execution Console (Plugin): 17998.1206" );
+        System.out.println( "HTML Generator (Plugin): 18226.896" );
+        System.out.println( "Alchemy Execution Console (Plugin): 18226.897" );
+        System.out.println( "Alchemy GUI Execution Console (Plugin): 18226.947" );
         
         
         System.out.println( "\r\n\r\nImported Suites" ); 
@@ -305,7 +307,7 @@ public class SuiteExecutionWrapper {
       if ( cli.hasOption( "a" ) ) {
         SuiteExecutionWrapper.instance().setName(cli.getOptionValue( "a" ));
       } else {
-        SuiteExecutionWrapper.instance().setName("Build screen");
+        SuiteExecutionWrapper.instance().setName("Cloud 12");
       }
       if ( cli.hasOption( "u" ) ) {
         SuiteExecutionWrapper.instance().setUserName(cli.getOptionValue( "u" ));
@@ -315,16 +317,16 @@ public class SuiteExecutionWrapper {
       if ( cli.hasOption( "d" ) ) {
         SuiteExecutionWrapper.instance().setDescription(cli.getOptionValue( "d" ));
       } else {
-        SuiteExecutionWrapper.instance().setDescription("No description was added for Build screen");
+        SuiteExecutionWrapper.instance().setDescription("No description was added for Cloud 12");
       }
 
       //
       // Configure the test level information
       //
       List<String> testList = new ArrayList(5);
-      if ( hasValue( "it", "17998.1208" ) ) {
+      if ( hasValue( "it", "18250.420" ) ) {
         if ( 0 == 0 || ( 0 == 1 && cli.hasOption( "rd" ) ) || ( 0 == 2 && cli.hasOption( "rq" ) ) ) {
-          TestManager.instance().registerTest( new org.org_1.build_screen.test_one() );
+          TestManager.instance().registerTest( new org.org_1.cloud_12.test_one() );
           testList.add("Test One");
         }
       }
@@ -342,13 +344,13 @@ public class SuiteExecutionWrapper {
       //
       Router r;
       /*
-      Routers from Build screen local router Execution Package
-      Add a description of Build screen local router Execution Package
+      Routers from Cloud 12 Execution Package
+      Add a description of Cloud 12 Execution Package
       */
-      if ( hasValue( "ir", "17998.1203" ) ) { 
-        r = new Router( 1, "Build screen local router", "17998.1203" ,"{\"name\":\"Build screen local router\",\"description\":\"Add a description of Build screen local router\",\"alchemyId\":1203,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}" );
+      if ( hasValue( "ir", "18250.415" ) ) { 
+        r = new Router( 8, "Cloud 12 router", "18250.415" ,"{\"name\":\"Cloud 12 router\",\"description\":\"Add a description of Cloud 12 router\",\"alchemyId\":415,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"routerId\":8,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"#{alchemy.cloud.url}\"}]}" );
       
-        r.addProperty( "URL", DataManager.instance().replaceValues( "http://localhost:4444/wd/hub" ) + "" );
+        r.addProperty( "URL", DataManager.instance().replaceValues( "#{alchemy.cloud.url}" ) + "" );
         SuiteExecutionWrapper.instance().routerList.add(r);
       }
       
@@ -359,14 +361,27 @@ public class SuiteExecutionWrapper {
       List<ExecutionTarget> targetList = new ArrayList<>(10);
       ExecutionTarget eT;
       /*
-      Targets from Build screen local router Execution Package
-      Add a description of Build screen local router Execution Package
+      Targets from Cloud 12 Execution Package
+      Add a description of Cloud 12 Execution Package
       */
-      if ( hasValue( "ie", "17998.1204" ) ) {
-        eT = new ExecutionTarget( "Chrome", "17998.1204", "17998.1203", 2 ,"{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":1204,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":1203,\"alchemySeed\":17998},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
+      if ( hasValue( "ie", "18250.416" ) ) {
+        eT = new ExecutionTarget( "Chrome", "18250.416", "18250.415", 2 ,"{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":416,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
         if ( eT.getMaximumAvailable() > 0 ) {
           eT.addProperty( "browserName", DataManager.instance().replaceValues( "chrome" ) + "" );
-          eT.addProperty( "platformName", DataManager.instance().replaceValues( "ANY" ) + "" );
+          targetList.add(eT);
+        }
+      }
+      if ( hasValue( "ie", "18250.417" ) ) {
+        eT = new ExecutionTarget( "Firefox", "18250.417", "18250.415", 2 ,"{\"name\":\"Firefox\",\"description\":\"Add a description of Firefox\",\"alchemyId\":417,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"firefox\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
+        if ( eT.getMaximumAvailable() > 0 ) {
+          eT.addProperty( "browserName", DataManager.instance().replaceValues( "firefox" ) + "" );
+          targetList.add(eT);
+        }
+      }
+      if ( hasValue( "ie", "18250.418" ) ) {
+        eT = new ExecutionTarget( "Microsoft Edge", "18250.418", "18250.415", 2 ,"{\"name\":\"Microsoft Edge\",\"description\":\"Add a description of Microsoft Edge\",\"alchemyId\":418,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"MicrosoftEdge\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
+        if ( eT.getMaximumAvailable() > 0 ) {
+          eT.addProperty( "browserName", DataManager.instance().replaceValues( "MicrosoftEdge" ) + "" );
           targetList.add(eT);
         }
       }
@@ -401,18 +416,7 @@ public class SuiteExecutionWrapper {
       // Configuration Integrations
       //
       Integration cI = null;
-      if ( hasValue( "iw", "17998.1201" ) ) { 
-        cI = new com.orasi.integration.embedded.selenium.SeleniumEmbedded();
-        log.warn( "Enabling Integration: " + cI.getName() );
-        cI.setProperty( "host", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "host", DataManager.instance().replaceValues( "localhost" ) + "" ) );
-        cI.setProperty( "port", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "port", DataManager.instance().replaceValues( "4444" ) + "" ) );
-        cI.setProperty( "managed", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "managed", DataManager.instance().replaceValues( "true" ) + "" ) );
-      
-        cI.initialize();
-        cI.getHandlers().forEach((t) -> {
-          addEventHandler(t);
-        });
-      }if ( hasValue( "iw", "17998.1205" ) ) { 
+      if ( hasValue( "iw", "18226.896" ) ) { 
         cI = new com.orasi.integration.html.HTMLSerializer();
         log.warn( "Enabling Integration: " + cI.getName() );
         cI.setProperty( "outputFolder", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "outputFolder", DataManager.instance().replaceValues( "c:/Reports" ) + "" ) );
@@ -425,10 +429,19 @@ public class SuiteExecutionWrapper {
         cI.getHandlers().forEach((t) -> {
           addEventHandler(t);
         });
-      }if ( hasValue( "iw", "17998.1206" ) ) { 
+      }if ( hasValue( "iw", "18226.897" ) ) { 
         cI = new com.orasi.integration.console.ExecutionConsole();
         log.warn( "Enabling Integration: " + cI.getName() );
         cI.setProperty( "color", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "color", DataManager.instance().replaceValues( "true" ) + "" ) );
+      
+        cI.initialize();
+        cI.getHandlers().forEach((t) -> {
+          addEventHandler(t);
+        });
+      }if ( hasValue( "iw", "18226.947" ) ) { 
+        cI = new com.orasi.integration.guiconsole.GUIExecutionConsole();
+        log.warn( "Enabling Integration: " + cI.getName() );
+        cI.setProperty( "port", SuiteExecutionWrapper.instance().getOption( cI.getKey(), "port", DataManager.instance().replaceValues( "8086" ) + "" ) );
       
         cI.initialize();
         cI.getHandlers().forEach((t) -> {
@@ -522,7 +535,7 @@ public class SuiteExecutionWrapper {
       suitePayload.setName(name);
       suitePayload.setDescription(description);
       suitePayload.setUserName(userName);
-      suitePayload.setSuiteDetail(  "{\"id\":4400,\"name\":\"Build screen\",\"description\":\"No description was added for Build screen\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":1,\"endpointStyleId\":1,\"targetId\":4562,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":3586,\"name\":\"Build screen local router Execution Package\",\"description\":\"Add a description of Build screen local router Execution Package\",\"alchemyId\":1202,\"alchemySeed\":17998,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"Chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 1204, \\\"alchemySeed\\\": 17998, \\\"description\\\": \\\"Add a description of Chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}, {\\\"name\\\": \\\"platformName\\\", \\\"value\\\": \\\"ANY\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 1203, \\\"alchemySeed\\\": 17998}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"Build screen local router\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 1, \\\"alchemyId\\\": 1203, \\\"alchemySeed\\\": 17998, \\\"description\\\": \\\"Add a description of Build screen local router\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"URL\\\", \\\"value\\\": \\\"http://localhost:4444/wd/hub\\\"}], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Sep 23, 2024, 1:13:03 PM\",\"modifyDate\":\"Sep 23, 2024, 1:13:03 PM\",\"targetList\":[{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":1204,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":1203,\"alchemySeed\":17998},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"Build screen local router\",\"description\":\"Add a description of Build screen local router\",\"alchemyId\":1203,\"alchemySeed\":17998,\"organizationId\":0,\"changed\":false,\"routerId\":1,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"http://localhost:4444/wd/hub\"}]}],\"acls\":[]}],\"version\":2,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":1200,\"alchemySeed\":17998,\"referenceSuiteID\":0,\"changed\":false}" );
+      suitePayload.setSuiteDetail(  "{\"id\":4471,\"name\":\"Cloud 12\",\"description\":\"No description was added for Cloud 12\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":1,\"endpointStyleId\":1,\"targetId\":4633,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":3654,\"name\":\"Cloud 12 Execution Package\",\"description\":\"Add a description of Cloud 12 Execution Package\",\"alchemyId\":414,\"alchemySeed\":18250,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"Chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 416, \\\"alchemySeed\\\": 18250, \\\"description\\\": \\\"Add a description of Chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 415, \\\"alchemySeed\\\": 18250}}, {\\\"name\\\": \\\"Firefox\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 417, \\\"alchemySeed\\\": 18250, \\\"description\\\": \\\"Add a description of Firefox\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"firefox\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 415, \\\"alchemySeed\\\": 18250}}, {\\\"name\\\": \\\"Microsoft Edge\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 418, \\\"alchemySeed\\\": 18250, \\\"description\\\": \\\"Add a description of Microsoft Edge\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"MicrosoftEdge\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 2, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 415, \\\"alchemySeed\\\": 18250}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"Cloud 12 router\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 8, \\\"alchemyId\\\": 415, \\\"alchemySeed\\\": 18250, \\\"description\\\": \\\"Add a description of Cloud 12 router\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"URL\\\", \\\"value\\\": \\\"#{alchemy.cloud.url}\\\"}], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Sep 26, 2024, 9:34:10 AM\",\"modifyDate\":\"Sep 26, 2024, 9:34:10 AM\",\"targetList\":[{\"name\":\"Chrome\",\"description\":\"Add a description of Chrome\",\"alchemyId\":416,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0},{\"name\":\"Firefox\",\"description\":\"Add a description of Firefox\",\"alchemyId\":417,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"firefox\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0},{\"name\":\"Microsoft Edge\",\"description\":\"Add a description of Microsoft Edge\",\"alchemyId\":418,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":2,\"executionRouterID\":{\"alchemyId\":415,\"alchemySeed\":18250},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"MicrosoftEdge\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"Cloud 12 router\",\"description\":\"Add a description of Cloud 12 router\",\"alchemyId\":415,\"alchemySeed\":18250,\"organizationId\":0,\"changed\":false,\"routerId\":8,\"status\":0,\"userId\":0,\"propertyList\":[{\"name\":\"URL\",\"value\":\"#{alchemy.cloud.url}\"}]}],\"acls\":[]}],\"version\":1,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":413,\"alchemySeed\":18250,\"referenceSuiteID\":0,\"changed\":false}" );
       suitePayload.setTestList(testList);
       suitePayload.setTargetList(targetList);
       suitePayload.setTotalTests(totalTasks);

@@ -29,16 +29,16 @@ public class ObjectManager {
 
     
 
-bC = new ByFactoryCollection("q", "17998.1216");
-bC.add( new ByFactory( ByXPath.class, "//TEXTAREA[@id=\"APjFqb\"]", "IDRule", "17998.1218" ) );
-bC.add( new ByFactory( ById.class, "APjFqb", "IDRule", "17998.1220" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@id=\"APjFqb\"]", "IDRule", "17998.1222" ) );
-bC.add( new ByFactory( ByXPath.class, "//TEXTAREA[@name=\"q\"]", "NameRule", "17998.1224" ) );
-bC.add( new ByFactory( ByName.class, "q", "NameRule", "17998.1226" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@name=\"q\"]", "NameRule", "17998.1228" ) );
+bC = new ByFactoryCollection("q", "18250.428");
+bC.add( new ByFactory( ByXPath.class, "//TEXTAREA[@id=\"APjFqb\"]", "IDRule", "18250.430" ) );
+bC.add( new ByFactory( ById.class, "APjFqb", "IDRule", "18250.432" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@id=\"APjFqb\"]", "IDRule", "18250.434" ) );
+bC.add( new ByFactory( ByXPath.class, "//TEXTAREA[@name=\"q\"]", "NameRule", "18250.436" ) );
+bC.add( new ByFactory( ByName.class, "q", "NameRule", "18250.438" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@name=\"q\"]", "NameRule", "18250.440" ) );
 
 
-objectMap.put( "17998.1216", bC );
+objectMap.put( "18250.428", bC );
 /* Page: default 
     
     */
@@ -49,48 +49,48 @@ objectMap.put( "17998.1216", bC );
 
     
 
-bC = new ByFactoryCollection("Facebook-loginorsignupFacebookhttps://wwwfacebookcom", "17998.1237");
-bC.add( new ByFactory( ByXPath.class, "//A[@href='https://www.facebook.com/']", "AttributeRule", "17998.1239" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@href='https://www.facebook.com/']", "AttributeRule", "17998.1241" ) );
-bC.add( new ByFactory( ByXPath.class, "//A[@data-ved='2ahUKEwjCurGhktmIAxXlna8BHQ0sAcwQFnoECAsQAQ']", "AttributeRule", "17998.1243" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@data-ved='2ahUKEwjCurGhktmIAxXlna8BHQ0sAcwQFnoECAsQAQ']", "AttributeRule", "17998.1245" ) );
-bC.add( new ByFactory( ByXPath.class, "//A[@ping='/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.facebook.com/&ved=2ahUKEwjCurGhktmIAxXlna8BHQ0sAcwQFnoECAsQAQ']", "AttributeRule", "17998.1247" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@ping='/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.facebook.com/&ved=2ahUKEwjCurGhktmIAxXlna8BHQ0sAcwQFnoECAsQAQ']", "AttributeRule", "17998.1249" ) );
+bC = new ByFactoryCollection("Facebook-loginorsignupFacebookhttps://wwwfacebookcom", "18250.449");
+bC.add( new ByFactory( ByXPath.class, "//A[@href='https://www.facebook.com/']", "AttributeRule", "18250.451" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@href='https://www.facebook.com/']", "AttributeRule", "18250.453" ) );
+bC.add( new ByFactory( ByXPath.class, "//A[@data-ved='2ahUKEwjzjcSToOCIAxVx-TgGHVCPAMQQFnoECAsQAQ']", "AttributeRule", "18250.455" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@data-ved='2ahUKEwjzjcSToOCIAxVx-TgGHVCPAMQQFnoECAsQAQ']", "AttributeRule", "18250.457" ) );
+bC.add( new ByFactory( ByXPath.class, "//A[@ping='/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.facebook.com/&ved=2ahUKEwjzjcSToOCIAxVx-TgGHVCPAMQQFnoECAsQAQ']", "AttributeRule", "18250.459" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@ping='/url?sa=t&source=web&rct=j&opi=89978449&url=https://www.facebook.com/&ved=2ahUKEwjzjcSToOCIAxVx-TgGHVCPAMQQFnoECAsQAQ']", "AttributeRule", "18250.461" ) );
 
 
-objectMap.put( "17998.1237", bC );
+objectMap.put( "18250.449", bC );
 /*
     Site: www.facebook.com
     Add a description of www.facebook.com
     */
-    /* Page: Log in to Facebook 
+    /* Page: Facebook  log in or sign up 
     
     */
 
     
 
-bC = new ByFactoryCollection("email", "17998.1256");
-bC.add( new ByFactory( ByXPath.class, "//INPUT[@id=\"email\"]", "IDRule", "17998.1258" ) );
-bC.add( new ByFactory( ById.class, "email", "IDRule", "17998.1260" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@id=\"email\"]", "IDRule", "17998.1262" ) );
-bC.add( new ByFactory( ByXPath.class, "//INPUT[@name=\"email\"]", "NameRule", "17998.1264" ) );
-bC.add( new ByFactory( ByName.class, "email", "NameRule", "17998.1266" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@name=\"email\"]", "NameRule", "17998.1268" ) );
+bC = new ByFactoryCollection("email", "18250.468");
+bC.add( new ByFactory( ByXPath.class, "//INPUT[@id=\"email\"]", "IDRule", "18250.470" ) );
+bC.add( new ByFactory( ById.class, "email", "IDRule", "18250.472" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@id=\"email\"]", "IDRule", "18250.474" ) );
+bC.add( new ByFactory( ByXPath.class, "//INPUT[@name=\"email\"]", "NameRule", "18250.476" ) );
+bC.add( new ByFactory( ByName.class, "email", "NameRule", "18250.478" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@name=\"email\"]", "NameRule", "18250.480" ) );
 
 
-objectMap.put( "17998.1256", bC );
+objectMap.put( "18250.468", bC );
 
 
-bC = new ByFactoryCollection("pass", "17998.1273");
-bC.add( new ByFactory( ByXPath.class, "//INPUT[@id=\"pass\"]", "IDRule", "17998.1275" ) );
-bC.add( new ByFactory( ById.class, "pass", "IDRule", "17998.1277" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@id=\"pass\"]", "IDRule", "17998.1279" ) );
-bC.add( new ByFactory( ByXPath.class, "//INPUT[@name=\"pass\"]", "NameRule", "17998.1281" ) );
-bC.add( new ByFactory( ByName.class, "pass", "NameRule", "17998.1283" ) );
-bC.add( new ByFactory( ByXPath.class, "//*[@name=\"pass\"]", "NameRule", "17998.1285" ) );
+bC = new ByFactoryCollection("pass", "18250.485");
+bC.add( new ByFactory( ByXPath.class, "//INPUT[@id=\"pass\"]", "IDRule", "18250.487" ) );
+bC.add( new ByFactory( ById.class, "pass", "IDRule", "18250.489" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@id=\"pass\"]", "IDRule", "18250.491" ) );
+bC.add( new ByFactory( ByXPath.class, "//INPUT[@name=\"pass\"]", "NameRule", "18250.493" ) );
+bC.add( new ByFactory( ByName.class, "pass", "NameRule", "18250.495" ) );
+bC.add( new ByFactory( ByXPath.class, "//*[@name=\"pass\"]", "NameRule", "18250.497" ) );
 
 
-objectMap.put( "17998.1273", bC );
+objectMap.put( "18250.485", bC );
 
 
 

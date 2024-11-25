@@ -3,7 +3,6 @@ package com.orasi;
 import com.orasi.datasource.DataRow;
 import java.util.Map;
 import java.util.Stack;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Allows a test to be wrapped and executed multiple times given a set of data
@@ -61,12 +60,12 @@ public class DataTestWrapper implements TestWrapper {
    * 
    * @param executionId
    * @param testExecutionId
-   * @param webDriver
+   * @param bW
    */
   @Override
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver) {
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW) {
     DataManager.instance().setRow( rowIdentifier, data);
-    baseTest.executeTest(executionId, testExecutionId, webDriver);
+    baseTest.executeTest(executionId, testExecutionId, bW);
     DataManager.instance().setRow(rowIdentifier, null);
   }
 
@@ -74,15 +73,15 @@ public class DataTestWrapper implements TestWrapper {
    *
    * @param executionId
    * @param testExecutionId
-   * @param webDriver
+   * @param bW
    * @param contextMap
    * @param contextName
    * @param callStack
    * @param stepStack
    */
   @Override
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
-    baseTest.executeTest(executionId, testExecutionId, webDriver, contextMap, contextName, callStack, stepStack);
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
+    baseTest.executeTest(executionId, testExecutionId, bW, contextMap, contextName, callStack, stepStack);
   }
 
   /**

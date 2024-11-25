@@ -1,5 +1,7 @@
 package com.orasi;
 
+import com.orasi.pages.*;
+
 public class VariableWrapper {
 
   private final String name;
@@ -10,9 +12,9 @@ public class VariableWrapper {
     this.name = name;
     this.value = value;
 
-    ByFactory bF = ObjectManager.instance().getObject(textValue);
-    if (bF != null && bF.getName() != null) {
-      this.textValue = bF.getName() + " (" + textValue + ")";
+    LocatorFactory lF = ObjectManager.instance().getObject(textValue);
+    if (lF != null && lF.getName() != null) {
+      this.textValue = lF.getName() + " (" + textValue + ")";
       return;
     }
     TestWrapper tW = TestManager.instance().getTest(textValue);

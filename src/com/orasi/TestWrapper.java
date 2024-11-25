@@ -3,7 +3,6 @@ package com.orasi;
 import com.orasi.datasource.DataRow;
 import java.util.Map;
 import java.util.Stack;
-import org.openqa.selenium.WebDriver;
 
 public interface TestWrapper {
 
@@ -27,7 +26,7 @@ public interface TestWrapper {
 
   public String getTestDetail();
 
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver);
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW);
 
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack);
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack);
 }

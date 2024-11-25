@@ -1,5 +1,7 @@
 package com.orasi;
 
+import static com.orasi.ActionLibrary.getStepCounter;
+import static com.orasi.ActionLibrary.notifyListeners;
 import com.orasi.alchemy.mediation.execution.FunctionExecutionMediator;
 import com.orasi.alchemy.mediation.execution.FunctionExecutor;
 import com.orasi.alchemy.mediation.execution.StackableContext;
@@ -10,8 +12,7 @@ import com.orasi.datasource.DataSourceProviderFactory;
 import com.orasi.datasource.DataTable;
 import com.orasi.event.spi.StepEvent;
 import com.orasi.model.StepPayload;
-import static com.orasi.shared_library.getStepCounter;
-import static com.orasi.shared_library.notifyListeners;
+import com.orasi.pages.ObjectManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +20,8 @@ import java.util.Map;
 import java.util.Stack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.openqa.selenium.WebDriver;
 
-public class TestManager implements FunctionExecutor {
+public class TestManager implements FunctionExecutor<BrowserWrapper> {
 
   private static final Logger log = LoggerFactory.getLogger(TestManager.class);
   private static final TestManager singleton = new TestManager();
@@ -111,7 +111,7 @@ public class TestManager implements FunctionExecutor {
   }
 
   @Override
-  public void executeFunction(String alchemyIdentifier, int executionId, int testExecutionId, Object webDriver, Map<String, Object> variableMap, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
+  public void executeFunction(String alchemyIdentifier, int executionId, int testExecutionId, BrowserWrapper bW, Map<String, Object> variableMap, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
     TestWrapper tW = testMap.get(alchemyIdentifier);
     if (tW == null) {
       throw new IllegalArgumentException("Could not locate test for " + alchemyIdentifier);
@@ -152,10 +152,7 @@ public class TestManager implements FunctionExecutor {
             ingressMap.put(mE.getKey(), dS.replaceValues(mE.getValue().getName(), contextMap) + "");
             break;
           case 5:
-            ingressMap.put(mE.getKey(), ObjectManager.instance().getObject(dS.replaceValues(mE.getValue().getName(), contextMap), contextMap, dS));
-            break;
-          case 8:
-            ingressMap.put(mE.getKey(), ((WebDriver) webDriver).findElement(ObjectManager.instance().getObject(dS.replaceValues(mE.getValue().getName(), contextMap), contextMap, dS)));
+            ingressMap.put(mE.getKey(), ObjectManager.instance().getObject( ( (BrowserWrapper) bW ).getPage(), dS.replaceValues(mE.getValue().getName(), contextMap), contextMap, dS));
             break;
           case 9:
             ingressMap.put(mE.getKey(), dS.getTable(dS.replaceValues(mE.getValue().getName(), contextMap) + ""));
@@ -199,7 +196,7 @@ public class TestManager implements FunctionExecutor {
         stepPayload.setStepDetail("{\"variableList\": [],\"functionVariables\": [],\"status\": 1,\"invertResult\": false,\"actionDisplay\": \"" + actionName + " by calling " + tW.getName() + "\"}");
         notifyListeners(new StepEvent(stepPayload, testName, 1));
       }
-      tW.executeTest(executionId, testExecutionId, (WebDriver) webDriver, contextMap, contextName, callStack, stepStack);
+      tW.executeTest(executionId, testExecutionId, (BrowserWrapper) bW, contextMap, contextName, callStack, stepStack);
 
       if (addStep) {
         notifyListeners(new StepEvent(stepPayload, testName, 4));

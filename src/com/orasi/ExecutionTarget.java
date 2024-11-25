@@ -11,7 +11,7 @@ public class ExecutionTarget {
   private final String alchemyIdentifier;
   private final String routerIdentifier;
   private String targetDetail;
-  private transient Router router;
+  private transient ExecutionRouter router;
   
   public ExecutionTarget( String name, String alchemyIdentifier, String routerIdentifier, int maximumAvailable, String targetDetail ) {
     this.name = name;
@@ -86,14 +86,14 @@ public class ExecutionTarget {
   /**
    * @return the router
    */
-  public Router getRouter() {
+  public ExecutionRouter getRouter() {
     return router;
   }
 
   /**
    * @param router the router to set
    */
-  public void setRouter(Router router) {
+  public void setRouter(ExecutionRouter router) {
     this.router = router;
   }
 

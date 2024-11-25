@@ -7,18 +7,17 @@ import com.orasi.model.StepException;
 import com.orasi.event.spi.StepEvent;
 import com.orasi.model.*;
 import com.orasi.model.StepException.FailureType;
-import static com.orasi.shared_library.getStepCounter;
-import static com.orasi.shared_library.notifyListeners;
+import static com.orasi.ActionLibrary.getStepCounter;
+import static com.orasi.ActionLibrary.notifyListeners;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Stack;
 import java.util.function.Function;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.microsoft.playwright.options.*;
+import com.microsoft.playwright.*;
 
 /**
  * The action mediator binds abstract actions definitions to underlying code
@@ -32,7 +31,7 @@ public class ActionMediator {
   private final Gson gson = gsonBuilder.create();
   private final int executionId;
   private final int testExecutionId;
-  private final WebDriver webDriver;
+  private final BrowserWrapper bW;
   private final Map<String, Object> contextMap;
   private final Stack<String> callStack;
   private final Stack<Integer> stepStack;
@@ -55,17 +54,17 @@ public class ActionMediator {
    * @param executionId The suite execution identifier
    * @param testExecutionId The test execution identifier
    * @param testName The name of the test invoking this mediator
-   * @param webDriver The selenium web driver instance
+   * @param bW A wrapper around playwright
    * @param contextMap A name/value pair of test scoped context variables
    * @param callStack A call stack of test/function names
    * @param stepStack A call stack of step execution identifiers
    * @param callStyle The current call style indicating how this action is
    * called
    */
-  public ActionMediator(int executionId, int testExecutionId, String testName, WebDriver webDriver, Map<String, Object> contextMap, Stack<String> callStack, Stack<Integer> stepStack, int callStyle) {
+  public ActionMediator(int executionId, int testExecutionId, String testName, BrowserWrapper bW, Map<String, Object> contextMap, Stack<String> callStack, Stack<Integer> stepStack, int callStyle) {
     this.executionId = executionId;
     this.testExecutionId = testExecutionId;
-    this.webDriver = webDriver;
+    this.bW = bW;
     this.contextMap = contextMap;
     this.callStack = callStack;
     this.stepStack = stepStack;
@@ -175,7 +174,7 @@ public class ActionMediator {
       stepPayload.setParentStep(parentId);
       stepPayload.setStepId(stepIdentifier);
 
-      Method actionMethod = shared_library.class.getMethod(actionName, new Class[]{int.class, int.class, int.class, WebDriver.class, Map.class, Map.class, String.class, Stack.class, Stack.class});
+      Method actionMethod = ActionLibrary.class.getMethod(actionName, new Class[]{int.class, int.class, int.class, BrowserWrapper.class, Map.class, Map.class, String.class, Stack.class, Stack.class});
 
       long startTime;
       boolean keepRunning = false;
@@ -194,7 +193,7 @@ public class ActionMediator {
         do {
           oneMore = false;
           try {
-            actionMethod.invoke(shared_library.class, new Object[]{executionId, stepIdentifier, testExecutionId, webDriver, variableMap, contextMap, contextName, callStack, stepStack});
+            actionMethod.invoke(ActionLibrary.class, new Object[]{executionId, stepIdentifier, testExecutionId, bW, variableMap, contextMap, contextName, callStack, stepStack});
             if (inverted) {
               invertApplied = true;
               throw new IllegalStateException("This step was meant to fail, but it succeeded");
@@ -217,7 +216,7 @@ public class ActionMediator {
               if (waitFor <= 0 || (System.currentTimeMillis() - startTime) > waitFor) {
                 if (!errorHandlerRun && functionName != null) {
                   contextMap.put("__callStyle", 2);
-                  FunctionExecutionMediator.instance().getFunctionExecutor().executeFunction(functionName, executionId, testExecutionId, webDriver, variableMap, contextMap, contextName, callStack, stepStack);
+                  FunctionExecutionMediator.instance().getFunctionExecutor().executeFunction(functionName, executionId, testExecutionId, bW, variableMap, contextMap, contextName, callStack, stepStack);
                   startTime = System.currentTimeMillis();
                   errorHandlerRun = true;
                   oneMore = true;
@@ -260,14 +259,14 @@ public class ActionMediator {
       if (getCallStyle() == 1) {
         switch (checkpointId) {
           case 2:
-            stepPayload.setScreenShot(screenShot(webDriver));
+            stepPayload.setScreenShot(screenShot(bW));
             break;
           case 3:
-            stepPayload.setSource(webDriver.getPageSource());
+            stepPayload.setSource(bW.getPage().content());
             break;
           case 4:
-            stepPayload.setScreenShot(screenShot(webDriver));
-            stepPayload.setSource(webDriver.getPageSource());
+            stepPayload.setScreenShot(screenShot(bW));
+            stepPayload.setSource(bW.getPage().content());
             break;
         }
       }
@@ -353,10 +352,10 @@ public class ActionMediator {
   }
 
   /**
-   * @return the webDriver
+   * @return the bW
    */
-  public WebDriver getWebDriver() {
-    return webDriver;
+  public BrowserWrapper getBrowser() {
+    return bW;
   }
 
   /**
@@ -394,12 +393,8 @@ public class ActionMediator {
     return callStyle;
   }
 
-  private byte[] screenShot(WebDriver webDriver) {
-    if (webDriver instanceof TakesScreenshot) {
-      return ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
-    } else {
-      return null;
-    }
+  private byte[] screenShot(BrowserWrapper bW) {
+    return bW.getPage().screenshot( new Page.ScreenshotOptions().setType(ScreenshotType.PNG).setFullPage(true) );
   }
 
 }

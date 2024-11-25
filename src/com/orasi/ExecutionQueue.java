@@ -7,8 +7,6 @@ import com.orasi.model.EOTException;
 import com.orasi.model.StepException;
 import com.orasi.model.StepPayload;
 import com.orasi.model.TestPayload;
-import static com.orasi.shared_library.getStepCounter;
-import static com.orasi.shared_library.notifyListeners;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import static com.orasi.ActionLibrary.getStepCounter;
+import static com.orasi.ActionLibrary.notifyListeners;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -132,12 +131,12 @@ public class ExecutionQueue implements Runnable {
 
         try {
           int testStatus = -1;
-          MonitoredRemoteWebDriver wD = null;
+          BrowserWrapper bW = null;
 
           TestPayload testPayload = new TestPayload();
-          testPayload.setExecutionIdentifier(SuiteExecutionWrapper.instance().getExecutionId());
+          testPayload.setExecutionIdentifier(TestSuite.instance().getExecutionId());
           testPayload.setTestExecutionIdentifier(eW.getExecutionId());
-          testPayload.setSuiteId(SuiteExecutionWrapper.instance().getId());
+          testPayload.setSuiteId(TestSuite.instance().getId());
           testPayload.setTestDetail(eW.getTestWrapper().getTestDetail());
           testPayload.setTargetDetail(eW.getEndpointDevice().getTargetDetail());
           testPayload.setRouterDetail(eW.getEndpointDevice().getRouterDetail());
@@ -145,7 +144,7 @@ public class ExecutionQueue implements Runnable {
 
           StepPayload stepPayload = new StepPayload();
           stepPayload.setActionName("Initialize");
-          stepPayload.setExecutionId(SuiteExecutionWrapper.instance().getExecutionId());
+          stepPayload.setExecutionId(TestSuite.instance().getExecutionId());
           stepPayload.setStepId(getStepCounter());
           stepPayload.setTestExecutionId(eW.getExecutionId());
           stepPayload.setParentStep(0);
@@ -169,7 +168,7 @@ public class ExecutionQueue implements Runnable {
           String varDetail = gson.toJson(varMap);
 
           try {
-            wD = new MonitoredRemoteWebDriver((RemoteWebDriver) eW.getEndpointDevice().connect(eW.getTestWrapper(), eW.getExecutionId()), eW);
+            bW = eW.getEndpointDevice().connect(eW.getTestWrapper(), eW.getExecutionId());
           } catch (Exception e) {
             if (eW.incrementTargetFailureCount() < targetFailureRepeat) {
               notifyListeners(new TestEvent(testPayload, eW.getTestWrapper().getName(), 6));
@@ -191,7 +190,7 @@ public class ExecutionQueue implements Runnable {
             //
             // Execute the test
             //
-            eW.getTestWrapper().executeTest(SuiteExecutionWrapper.instance().getExecutionId(), eW.getExecutionId(), wD);
+            eW.getTestWrapper().executeTest(TestSuite.instance().getExecutionId(), eW.getExecutionId(), bW);
 
             testPayload = new TestPayload();
             testPayload.setTestExecutionIdentifier(eW.getExecutionId());
@@ -234,7 +233,7 @@ public class ExecutionQueue implements Runnable {
 
             stepPayload = new StepPayload();
             stepPayload.setActionName("Remove Data");
-            stepPayload.setExecutionId(SuiteExecutionWrapper.instance().getExecutionId());
+            stepPayload.setExecutionId(TestSuite.instance().getExecutionId());
             stepPayload.setStepId(getStepCounter());
             stepPayload.setTestExecutionId(eW.getExecutionId());
             stepPayload.setParentStep(0);
@@ -247,14 +246,14 @@ public class ExecutionQueue implements Runnable {
             try {
               stepPayload = new StepPayload();
               stepPayload.setActionName("Quit");
-              stepPayload.setExecutionId(SuiteExecutionWrapper.instance().getExecutionId());
+              stepPayload.setExecutionId(TestSuite.instance().getExecutionId());
               stepPayload.setStepId(getStepCounter());
               stepPayload.setTestExecutionId(eW.getExecutionId());
               stepPayload.setParentStep(0);
               stepPayload.setVariableList(varDetail);
               stepPayload.setStepDetail("{'actionDisplay': 'Disconnecting session for {var:browserName} from {var:URL}'}");
               notifyListeners(new StepEvent(stepPayload, eW.getTestWrapper().getName(), 1));
-              wD.quit();
+              bW.close();
               stepPayload.setStatus(1);
               notifyListeners(new StepEvent(stepPayload, eW.getTestWrapper().getName(), 4));
             } catch (Exception e) {

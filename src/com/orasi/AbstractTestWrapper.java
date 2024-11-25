@@ -2,17 +2,16 @@ package com.orasi;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.microsoft.playwright.*;
 import com.orasi.datasource.DataRow;
 import com.orasi.datasource.DataSourceProvider;
 import com.orasi.datasource.DataTable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.orasi.pages.*;
 
 /**
  * AbstractTestWrapper provides some base functionality for each test or
@@ -38,14 +37,14 @@ public abstract class AbstractTestWrapper implements TestWrapper {
    *
    * @param executionId The suite execution identifier
    * @param testExecutionId The test execution identifier
-   * @param webDriver The selenium web driver instance
+   * @param bW A Browser Wrapper inteface wrapped around Playwright
    * @param contextMap A name/value pair of test scoped context variables
    * @param contextName The current context name used for function calls and
    * recursive executions
    * @param callStack A call stack of test/function names
    * @param stepStack A call stack of step execution identifiers
    */
-  protected abstract void _executeTest(int executionId, int testExecutionId, WebDriver webDriver, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack);
+  protected abstract void _executeTest(int executionId, int testExecutionId, BrowserWrapper bW, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack);
 
   /**
    *
@@ -142,7 +141,7 @@ public abstract class AbstractTestWrapper implements TestWrapper {
    *
    * @param executionId The suite execution identifier
    * @param testExecutionId The test execution identifier
-   * @param webDriver The selenium web driver instance
+   * @param bW A Browser Wrapper inteface wrapped around Playwright
    * @param contextMap A name/value pair of test scoped context variables
    * @param contextName The current context name used for function calls and
    * recursive executions
@@ -150,8 +149,8 @@ public abstract class AbstractTestWrapper implements TestWrapper {
    * @param stepStack A call stack of step execution identifiers
    */
   @Override
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
-    this._executeTest(executionId, testExecutionId, webDriver, contextMap, contextName, callStack, stepStack);
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW, Map<String, Object> contextMap, String contextName, Stack<String> callStack, Stack<Integer> stepStack) {
+    this._executeTest(executionId, testExecutionId, bW, contextMap, contextName, callStack, stepStack);
   }
 
   /**
@@ -159,12 +158,12 @@ public abstract class AbstractTestWrapper implements TestWrapper {
    *
    * @param executionId The suite execution identifier
    * @param testExecutionId The test execution identifier
-   * @param webDriver The selenium web driver instance
+   * @param bW A Browser Wrapper inteface wrapped around Playwright
    */
   @Override
-  public void executeTest(int executionId, int testExecutionId, WebDriver webDriver) {
+  public void executeTest(int executionId, int testExecutionId, BrowserWrapper bW) {
     log.info("Starting Test " + getName());
-    _executeTest(executionId, testExecutionId, webDriver, new ContextMap(), "", new Stack<>(), new Stack<>());
+    _executeTest(executionId, testExecutionId, bW, new ContextMap(), "", new Stack<>(), new Stack<>());
   }
 
   /**
@@ -257,7 +256,7 @@ public abstract class AbstractTestWrapper implements TestWrapper {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
 
-  protected VariableWrapper createVariable(String name, int type, boolean required, String value, DataSourceProvider dS, Map<String, Object> contextMap, WebDriver webDriver) {
+  protected VariableWrapper createVariable(String name, int type, boolean required, String value, DataSourceProvider dS, Map<String, Object> contextMap, BrowserWrapper bW) {
     log.atDebug().log("Creating variable [" + name + "] from [" + value + "] of type " + type);
 
     Object useValue = null;
@@ -323,6 +322,7 @@ public abstract class AbstractTestWrapper implements TestWrapper {
 
         break;
       case 5:
+
         if (value == null) {
           if (required) {
             throw new IllegalArgumentException("No value was provided for [" + name + "] - expected a Locator reference");
@@ -330,10 +330,10 @@ public abstract class AbstractTestWrapper implements TestWrapper {
             return null;
           }
         }
-        if (value.getClass().isAssignableFrom(By.class)) {
+        if (value.getClass().isAssignableFrom(Locator.class)) {
           useValue = value;
         } else {
-          useValue = ObjectManager.instance().getObject(dS.replaceValues(value, contextMap), contextMap, dS);
+          useValue = ObjectManager.instance().getObject(bW.getPage(), dS.replaceValues(value, contextMap), contextMap, dS);
 
           if (useValue == null) {
             if (required) {
@@ -341,9 +341,9 @@ public abstract class AbstractTestWrapper implements TestWrapper {
             }
           }
 
-          ByFactory bF = ObjectManager.instance().getObject(dS.replaceValues(value, contextMap) + "");
-          if (bF != null) {
-            useName = bF.getName();
+          LocatorFactory lF = ObjectManager.instance().getObject(dS.replaceValues(value, contextMap) + "");
+          if (lF != null) {
+            useName = lF.getName();
           }
         }
         break;
@@ -356,37 +356,6 @@ public abstract class AbstractTestWrapper implements TestWrapper {
         useValue = dS.replaceValues(value, contextMap) + "";
         break;
 
-      case 8:
-        if (value == null) {
-          if (required) {
-            throw new IllegalArgumentException("No value was provided for [" + name + "] - expected a Locator reference");
-          } else {
-            return null;
-          }
-        }
-        if (value.getClass().isAssignableFrom(WebElement.class)) {
-          useValue = value;
-        } else {
-          useValue = ObjectManager.instance().getObject(dS.replaceValues(value, contextMap), contextMap, dS);
-
-          if (useValue == null) {
-            if (required) {
-              throw new IllegalArgumentException("[" + value + "] was provided for [" + name + "], but no Object was found using that locator reference");
-            }
-          } else {
-            ByFactory bF = ObjectManager.instance().getObject(dS.replaceValues(value, contextMap) + "");
-            if (bF != null) {
-              useName = bF.getName();
-            }
-
-            try {
-              webDriver.findElement((By) useValue);
-            } catch (Exception e) {
-              throw new IllegalArgumentException("[" + value + "] was provided for [" + name + "].  The element on the page could not be found using [" + useValue.toString() + "]");
-            }
-          }
-        }
-        break;
 
       case 9:
         if (value == null) {

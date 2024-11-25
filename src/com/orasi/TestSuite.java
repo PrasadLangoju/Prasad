@@ -1,5 +1,5 @@
 /**
- * @version 1
+ * @version 2
  */
   
 package com.orasi;
@@ -256,36 +256,36 @@ public class TestSuite {
 
       if ( cli.hasOption( "h" ) ) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("java -jar Git_Testing", TestSuite.instance().getOptions() );
+        formatter.printHelp("java -jar Git_Testing2", TestSuite.instance().getOptions() );
         System.exit( 0 );
       }
 
       if ( cli.hasOption( "q" ) ) {
         System.out.println( "Suite" );
-        System.out.println( "Git Testing (Suite): 22681.1471" ); 
+        System.out.println( "Git Testing2 (Suite): 22681.1698" ); 
         System.out.println( "\r\nTests" );
-        System.out.println( "T1 (Test): 22681.1475" );
+        System.out.println( "T1 (Test): 22681.1702" );
         
         System.out.println( "\r\nFunctions" );
         
         
         System.out.println( "\r\nExecution Targets" );
-	System.out.println( "D (Router): 22681.1696" );
-	System.out.println( "chrome (Execution Target): 22681.1697" );
+	System.out.println( "Direct (Router): 22681.1924" );
+	System.out.println( "chrome (Execution Target): 22681.1925" );
 	
         System.out.println( "\r\nSites and Pages" );
-        System.out.println( "www.google.com (Site): 22681.1477" );
-        System.out.println( "Google (Page): 22681.1481" );
-        System.out.println( "default (Page): 22681.1562" );
-        System.out.println( "facebook - Google Search (Page): 22681.1564" );
-        System.out.println( "www.facebook.com (Site): 22681.1589" );
-        System.out.println( "Facebook  log in or sign up (Page): 22681.1591" );
+        System.out.println( "www.google.com (Site): 22681.1704" );
+        System.out.println( "Google (Page): 22681.1707" );
+        System.out.println( "default (Page): 22681.1795" );
+        System.out.println( "facebook - Google Search (Page): 22681.1797" );
+        System.out.println( "www.facebook.com (Site): 22681.1824" );
+        System.out.println( "Facebook  log in or sign up (Page): 22681.1826" );
         
         System.out.println( "\r\nData Sources" );
         
         System.out.println( "\r\nPlugins" );
-        System.out.println( "HTML Generator (Plugin): 22681.1472" );
-        System.out.println( "Alchemy Execution Console (Plugin): 22681.1473" );
+        System.out.println( "HTML Generator (Plugin): 22681.1699" );
+        System.out.println( "Alchemy Execution Console (Plugin): 22681.1700" );
         
         
         System.out.println( "\r\n\r\nImported Suites" ); 
@@ -303,7 +303,7 @@ public class TestSuite {
       if ( cli.hasOption( "a" ) ) {
         TestSuite.instance().setName(cli.getOptionValue( "a" ));
       } else {
-        TestSuite.instance().setName("Git Testing");
+        TestSuite.instance().setName("Git Testing2");
       }
       if ( cli.hasOption( "u" ) ) {
         TestSuite.instance().setUserName(cli.getOptionValue( "u" ));
@@ -313,16 +313,16 @@ public class TestSuite {
       if ( cli.hasOption( "d" ) ) {
         TestSuite.instance().setDescription(cli.getOptionValue( "d" ));
       } else {
-        TestSuite.instance().setDescription("No description was added for Git Testing");
+        TestSuite.instance().setDescription("No description was added for Git Testing2");
       }
 
       //
       // Configure the test level information
       //
       List<String> testList = new ArrayList(5);
-      if ( hasValue( "it", "22681.1475" ) ) {
+      if ( hasValue( "it", "22681.1702" ) ) {
         if ( 0 == 0 || ( 0 == 1 && cli.hasOption( "rd" ) ) || ( 0 == 2 && cli.hasOption( "rq" ) ) ) {
-          TestManager.instance().registerTest( new org.org_1.git_testing.t1() );
+          TestManager.instance().registerTest( new org.org_1.git_testing2.t1() );
           testList.add("T1");
         }
       }
@@ -340,11 +340,11 @@ public class TestSuite {
       //
       ExecutionRouter r;
       /*
-      Routers from D
-      Add a description of D
+      Routers from Direct
+      Add a description of Direct
       */
-      if ( hasValue( "ir", "22681.1696" ) ) { 
-        r = new ExecutionRouter( 9, "D", "22681.1696" ,"{\"name\":\"D\",\"description\":\"D\",\"alchemyId\":1696,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"routerId\":9,\"status\":0,\"userId\":0,\"propertyList\":[]}" );
+      if ( hasValue( "ir", "22681.1924" ) ) { 
+        r = new ExecutionRouter( 9, "Direct", "22681.1924" ,"{\"name\":\"Direct\",\"description\":\"Direct\",\"alchemyId\":1924,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"routerId\":9,\"status\":0,\"userId\":0,\"propertyList\":[]}" );
       
         TestSuite.instance().routerList.add(r);
       }
@@ -356,11 +356,11 @@ public class TestSuite {
       List<ExecutionTarget> targetList = new ArrayList<>(10);
       ExecutionTarget eT;
       /*
-      Targets from D
-      Add a description of D
+      Targets from Direct
+      Add a description of Direct
       */
-      if ( hasValue( "ie", "22681.1697" ) ) {
-        eT = new ExecutionTarget( "chrome", "22681.1697", "22681.1696", 1 ,"{\"name\":\"chrome\",\"description\":\"chrome\",\"alchemyId\":1697,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":1,\"executionRouterID\":{\"alchemyId\":1696,\"alchemySeed\":22681},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
+      if ( hasValue( "ie", "22681.1925" ) ) {
+        eT = new ExecutionTarget( "chrome", "22681.1925", "22681.1924", 1 ,"{\"name\":\"chrome\",\"description\":\"chrome\",\"alchemyId\":1925,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":1,\"executionRouterID\":{\"alchemyId\":1924,\"alchemySeed\":22681},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}" );
         if ( eT.getMaximumAvailable() > 0 ) {
           eT.addProperty( "browserName", DataManager.instance().replaceValues( "chrome" ) + "" );
           eT.addProperty( "platformName", DataManager.instance().replaceValues( "ANY" ) + "" );
@@ -398,11 +398,11 @@ public class TestSuite {
       // Configuration Integrations
       //
       Integration cI = null;
-      if ( hasValue( "iw", "22681.1472" ) ) { 
+      if ( hasValue( "iw", "22681.1699" ) ) { 
         cI = new com.orasi.integration.html.HTMLSerializer();
         log.warn( "Enabling Integration: " + cI.getName() );
-        cI.setProperty( "outputFolder", TestSuite.instance().getOption( cI.getKey(), "outputFolder", DataManager.instance().replaceValues( "." ) + "" ) );
-        cI.setProperty( "launchUi", TestSuite.instance().getOption( cI.getKey(), "launchUi", DataManager.instance().replaceValues( "false" ) + "" ) );
+        cI.setProperty( "outputFolder", TestSuite.instance().getOption( cI.getKey(), "outputFolder", DataManager.instance().replaceValues( "c:/Reports" ) + "" ) );
+        cI.setProperty( "launchUi", TestSuite.instance().getOption( cI.getKey(), "launchUi", DataManager.instance().replaceValues( "true" ) + "" ) );
         cI.setProperty( "suiteTemplate", TestSuite.instance().getOption( cI.getKey(), "suiteTemplate", DataManager.instance().replaceValues( "" ) + "" ) );
         cI.setProperty( "testTemplate", TestSuite.instance().getOption( cI.getKey(), "testTemplate", DataManager.instance().replaceValues( "" ) + "" ) );
         cI.setProperty( "sourceTemplate", TestSuite.instance().getOption( cI.getKey(), "sourceTemplate", DataManager.instance().replaceValues( "" ) + "" ) );
@@ -411,10 +411,10 @@ public class TestSuite {
         cI.getHandlers().forEach((t) -> {
           addEventHandler(t);
         });
-      }if ( hasValue( "iw", "22681.1473" ) ) { 
+      }if ( hasValue( "iw", "22681.1700" ) ) { 
         cI = new com.orasi.integration.console.ExecutionConsole();
         log.warn( "Enabling Integration: " + cI.getName() );
-        cI.setProperty( "color", TestSuite.instance().getOption( cI.getKey(), "color", DataManager.instance().replaceValues( "false" ) + "" ) );
+        cI.setProperty( "color", TestSuite.instance().getOption( cI.getKey(), "color", DataManager.instance().replaceValues( "true" ) + "" ) );
       
         cI.initialize();
         cI.getHandlers().forEach((t) -> {
@@ -508,7 +508,7 @@ public class TestSuite {
       suitePayload.setName(name);
       suitePayload.setDescription(description);
       suitePayload.setUserName(userName);
-      suitePayload.setSuiteDetail(  "{\"id\":5212,\"name\":\"Git Testing\",\"description\":\"No description was added for Git Testing\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":5,\"endpointStyleId\":127,\"targetId\":5377,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":4397,\"name\":\"D\",\"description\":\"Add a description of D\",\"alchemyId\":1695,\"alchemySeed\":22681,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 1697, \\\"alchemySeed\\\": 22681, \\\"description\\\": \\\"chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}, {\\\"name\\\": \\\"platformName\\\", \\\"value\\\": \\\"ANY\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 1, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 1696, \\\"alchemySeed\\\": 22681}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"D\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 9, \\\"alchemyId\\\": 1696, \\\"alchemySeed\\\": 22681, \\\"description\\\": \\\"D\\\", \\\"propertyList\\\": [], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Nov 25, 2024, 8:40:56 AM\",\"modifyDate\":\"Nov 25, 2024, 8:40:56 AM\",\"targetList\":[{\"name\":\"chrome\",\"description\":\"chrome\",\"alchemyId\":1697,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":1,\"executionRouterID\":{\"alchemyId\":1696,\"alchemySeed\":22681},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"D\",\"description\":\"D\",\"alchemyId\":1696,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"routerId\":9,\"status\":0,\"userId\":0,\"propertyList\":[]}],\"acls\":[]}],\"version\":1,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":1471,\"alchemySeed\":22681,\"referenceSuiteID\":0,\"changed\":false}" );
+      suitePayload.setSuiteDetail(  "{\"id\":5213,\"name\":\"Git Testing2\",\"description\":\"No description was added for Git Testing2\",\"userId\":15,\"userConfidence\":0,\"organizationId\":1,\"organizationConfidence\":0,\"status\":1,\"endpointId\":5,\"endpointStyleId\":127,\"targetId\":5378,\"targetConfigurationId\":0,\"targetVersionId\":0,\"reviewFlag\":0,\"importTests\":0,\"importFunctions\":0,\"importSites\":0,\"importTargets\":0,\"importData\":0,\"shareCount\":0,\"conductorList\":[{\"reviewFlag\":0,\"id\":4398,\"name\":\"Direct\",\"description\":\"Add a description of Direct\",\"alchemyId\":1923,\"alchemySeed\":22681,\"organizationId\":1,\"userId\":15,\"version\":0,\"targetDetail\":\"[{\\\"name\\\": \\\"chrome\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"alchemyId\\\": 1925, \\\"alchemySeed\\\": 22681, \\\"description\\\": \\\"chrome\\\", \\\"propertyList\\\": [{\\\"name\\\": \\\"browserName\\\", \\\"value\\\": \\\"chrome\\\"}, {\\\"name\\\": \\\"platformName\\\", \\\"value\\\": \\\"ANY\\\"}], \\\"organizationId\\\": 0, \\\"maximumAvailable\\\": 1, \\\"referenceSuiteID\\\": 0, \\\"executionRouterID\\\": {\\\"alchemyId\\\": 1924, \\\"alchemySeed\\\": 22681}}]\",\"routerDetail\":\"[{\\\"name\\\": \\\"Direct\\\", \\\"status\\\": 0, \\\"userId\\\": 0, \\\"changed\\\": false, \\\"routerId\\\": 9, \\\"alchemyId\\\": 1924, \\\"alchemySeed\\\": 22681, \\\"description\\\": \\\"Direct\\\", \\\"propertyList\\\": [], \\\"organizationId\\\": 0}]\",\"status\":1,\"lockUserId\":0,\"changed\":false,\"createDate\":\"Nov 25, 2024, 8:51:01 AM\",\"modifyDate\":\"Nov 25, 2024, 8:51:01 AM\",\"targetList\":[{\"name\":\"chrome\",\"description\":\"chrome\",\"alchemyId\":1925,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"maximumAvailable\":1,\"executionRouterID\":{\"alchemyId\":1924,\"alchemySeed\":22681},\"propertyList\":[{\"name\":\"browserName\",\"value\":\"chrome\"},{\"name\":\"platformName\",\"value\":\"ANY\"}],\"status\":0,\"userId\":0,\"referenceSuiteID\":0}],\"routerList\":[{\"name\":\"Direct\",\"description\":\"Direct\",\"alchemyId\":1924,\"alchemySeed\":22681,\"organizationId\":0,\"changed\":false,\"routerId\":9,\"status\":0,\"userId\":0,\"propertyList\":[]}],\"acls\":[]}],\"version\":2,\"lockUserId\":0,\"testDisplay\":0,\"alchemyId\":1698,\"alchemySeed\":22681,\"referenceSuiteID\":0,\"changed\":false}" );
       suitePayload.setTestList(testList);
       suitePayload.setTargetList(targetList);
       suitePayload.setTotalTests(totalTasks);
